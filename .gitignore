@@ -1,0 +1,24 @@
+# Secrets and VPN configs
+*.ovpn
+*.key
+*.pem
+.env
+
+# Raw tool output / loot that should not be published
+loot/
+*.pcap
+*.kirbi
+*.ccache
+*.hash
+*.hashes
+
+# Private notes (pro labs, cloud labs)
+pro-labs/private/
+cloud-labs/private/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
