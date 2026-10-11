@@ -33,3 +33,4 @@ Each folder has its own `README.md` with a table of completed writeups.
 ## Disclaimer
 
 For educational purposes only. All activity was performed against Hack The Box lab environments I am authorized to attack. See [`RULES.md`](RULES.md).
+# HTB_Write_UPS
