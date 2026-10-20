@@ -1,63 +1,49 @@
-# Meow
+# Hack The Box: Meow
 
-| | |
-|---|---|
-| **Tier** | 0 |
-| **OS** | Linux |
-| **Date solved** | 2026-10-19 |
-| **Tags** | Nmap, Telnet, default credentials |
+First, start the machine and make sure you are connected to the correct network within Hack The Box.
 
-## Summary
-Meow is an introductory Linux machine that exposes Telnet on port 23 and allows a root login with a blank password. The exercise demonstrates VPN connectivity, basic port scanning, and why unauthenticated remote root access is unsafe.
+![Task 1](images/meow/task1.png)
 
-## Recon
-Connect to the Hack The Box lab network. If you are not using Pwnbox, start the provided OpenVPN configuration and leave it running. Verify connectivity to the target:
+Open the bash terminal in Hack The Box. It is the green terminal in the middle.
 
-```sh
-ping <TARGET_IP>
-```
+![Terminal](images/meow/terminal.png)
 
-Scan the target for open ports:
+![Task 2](images/meow/task2.png)
 
-```sh
-nmap <TARGET_IP>
-```
+If you are not using Pwnbox, download the OpenVPN configuration and run it in a terminal. Leave that terminal open to keep the VPN connection active.
 
-The scan identifies TCP port 23 running Telnet.
+![Task 3](images/meow/task3.png)
 
-## Exploitation
-Connect to the Telnet service:
+Open a terminal and ping the Meow machine's IP address. In this example, the address is `10.129.96.15`. Press Ctrl+C after a few replies. This verifies that the VPN is working and your machine is on the correct network.
 
-```sh
-telnet <TARGET_IP> 23
-```
+![Ping](images/meow/ping.png)
 
-At the `Meow login:` prompt, enter `root`. Leave the password blank and press Enter. The login provides a root shell. List the files and read `flag.txt` to complete the lab; the flag is intentionally redacted here.
+![Task 4](images/meow/task4.png)
+
+Use Nmap to identify open ports and the services running on the target.
+
+![Nmap](images/meow/nmap.png)
+
+The scan shows Telnet open on TCP port 23. Telnet is a command-line protocol for remotely connecting to computers, but it does not encrypt traffic.
+
+![Task 5](images/meow/task5.png)
+
+Connect to the service by specifying the target address and port:
 
 ```sh
-ls
-cat flag.txt
+telnet 10.129.96.15 23
 ```
 
-## Task questions
-| # | Question (paraphrased) | Answer |
-|---|---|---|
-| 1 | What does VM stand for? | Virtual Machine |
-| 2 | What is the command-line interface also known as a console or shell? | Terminal |
-| 3 | What service forms the VPN connection to HTB labs? | OpenVPN |
-| 4 | Which tool sends ICMP echo requests to test connectivity? | `ping` |
-| 5 | What is the common tool used to find open ports? | `nmap` |
-| 6 | What service is running on TCP port 23? | Telnet |
-| 7 | Which username logs in over Telnet with a blank password? | `root` |
+![Telnet](images/meow/telnet.png)
 
-## Lessons learned
-- Confirm VPN connectivity before scanning a lab target.
-- Nmap can identify exposed ports and services.
-- Telnet sends traffic without encryption and should not expose privileged access.
-- Never allow remote root login with a blank password.
+![Task 6](images/meow/task6.png)
 
-## Remediation
-- Disable Telnet and use SSH with key-based authentication.
-- Disable direct root login and enforce strong authentication.
-- Restrict remote management access to trusted networks.
+At the login prompt, try default usernames such as `admin`, `administrator`, and `root`. For this machine, the username is `root` and the password can be left blank.
 
+![Task 7](images/meow/task7.png)
+
+After logging in, you have a root shell on the target.
+
+![Root shell](images/meow/root-shell.png)
+
+Use `ls` to list the files. The flag is in `flag.txt`; its value is redacted in accordance with the repository's spoiler policy.
